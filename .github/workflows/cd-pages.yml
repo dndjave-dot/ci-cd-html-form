@@ -1,0 +1,52 @@
+# .github/workflows/cd-pages.yml
+
+name: Continuous Deployment - GitHub Pages
+
+# Déclenchement à chaque push sur la branche main (après un merge)
+on:
+  push:
+    branches:
+      - main
+      
+# Permissions obligatoires pour publier sur GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Configuration de l'environnement GitHub Pages
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    # 2. Télécharger l'artefact (le fichier ZIP créé par ci.yml)
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: web-app-build # Nom de l'artefact
+        path: build-output 
+
+    # 3. Dézipper l'artefact
+    - name: Unzip artifact
+      run: |
+        cd build-output
+        unzip web-app.zip
+        
+    # 4. Uploader les fichiers décompressés pour le déploiement
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: 'build-output'
+        
+    # 5. Déployer sur GitHub Pages
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+      
+    # 6. Afficher l'URL
+    - name: Display deployment URL
+      run: echo "Déploiement réussi à l'URL : ${{ steps.deployment.outputs.page_url }}"
