@@ -1,0 +1,45 @@
+# .github/workflows/ci.yml
+
+name: Continuous Integration - CI
+
+# Le workflow s'exécute à chaque push sur dev et main, et à l'ouverture d'une PR
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Checkout du code (récupère les fichiers)
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    # 2. Lancer les tests (simulé pour HTML/CSS pur)
+    - name: Run Dummy Tests
+      run: echo "Tests validés pour le site statique."
+      
+    # 3. Générer l'artefact (le build)
+    - name: Archive production artifacts (ZIP du site)
+      run: |
+        # Crée une archive ZIP contenant les fichiers du site
+        zip -r web-app.zip index.html style.css
+        
+    # 4. Publier l'artefact sur GitHub Actions 
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: web-app-build
+        path: web-app.zip
+        
+    # 5. Afficher des logs de build
+    - name: Display build log details
+      run: |
+        echo "CI terminée avec succès. Artefact web-app.zip créé."
