@@ -1,0 +1,119 @@
+/* Variables pour les couleurs */
+:root {
+    --primary-color: #007bff; /* Bleu Professionnel */
+    --text-color: #333;
+    --background-color: #f5f7fa; /* Fond très clair */
+    --card-background: #ffffff; /* Fond de la carte */
+    --border-color: #ddd;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 1. Réinitialisation et base de la typographie */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* 2. Conteneur du formulaire (pour centrer et limiter la taille) */
+.form-container {
+    width: 100%;
+    max-width: 420px; /* Taille modérée pour un formulaire élégant */
+}
+
+/* 3. Style de la carte/formulaire */
+.professional-form {
+    background: var(--card-background);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px var(--shadow-color); /* Ombre douce et professionnelle */
+    width: 100%;
+}
+
+.professional-form h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* 4. Groupes d'entrée (Input Group) */
+.input-group {
+    position: relative;
+    margin-bottom: 25px; /* Bon espacement */
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); /* Léger halo bleu au focus */
+}
+
+/* Icônes */
+.input-group .icon {
+    color: #999;
+    margin-right: 15px;
+    font-size: 18px;
+}
+
+/* Champs de texte */
+.input-group input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 5px 0;
+    width: 100%;
+}
+
+.input-group input::placeholder {
+    color: #aaa;
+}
+
+/* 5. Bouton de soumission */
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3; /* Bleu plus foncé au survol */
+    transform: translateY(-2px); /* Léger effet de soulèvement */
+}
+
+.submit-btn:active {
+    background-color: #004085;
+    transform: translateY(0);
+}
+
+/* 6. Responsivité (ajustement léger pour les très petits écrans si nécessaire) */
+@media (max-width: 480px) {
+    .professional-form {
+        padding: 30px 20px;
+    }
+}
