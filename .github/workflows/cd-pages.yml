@@ -2,7 +2,7 @@
 
 name: Continuous Deployment - GitHub Pages
 
-# Déclenchement à chaque push sur la branche main (après un merge)
+# Ce workflow se lance uniquement quand du code est poussé sur la branche main (après un merge)
 on:
   push:
     branches:
@@ -15,6 +15,7 @@ permissions:
   id-token: write
 
 jobs:
+  # Le job 'deploy' dépend du succès de la CI qui a créé l'artefact
   deploy:
     runs-on: ubuntu-latest
     
@@ -27,7 +28,7 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v4
       with:
-        name: web-app-build # Nom de l'artefact
+        name: web-app-build 
         path: build-output 
 
     # 3. Dézipper l'artefact
@@ -47,6 +48,6 @@ jobs:
       id: deployment
       uses: actions/deploy-pages@v4
       
-    # 6. Afficher l'URL
+    # 6. Afficher l'URL (Notification)
     - name: Display deployment URL
       run: echo "Déploiement réussi à l'URL : ${{ steps.deployment.outputs.page_url }}"
